@@ -2,6 +2,8 @@ package main
 
 import (
 	// "net/http"
+
+	"fmt"
 	"time"
 
 	"github.com/andlabs/ui"
@@ -10,7 +12,7 @@ import (
 
 func main() {
 	e := echo.New()
-	e.Static("/", "./")
+	e.Static("/", "./www/")
 
 	uiErr := ui.Main(func() {
 		startBtn := ui.NewButton("Start")
@@ -26,7 +28,10 @@ func main() {
 
 		// Events
 		startBtn.OnClicked(func(*ui.Button) {
-			e.Logger.Fatal(e.Start(":8080"))
+			fmt.Println("hello")
+			go func() {
+				e.Logger.Fatal(e.Start(":8080"))
+			}()
 		})
 
 		stopBtn.OnClicked(func(*ui.Button) {
