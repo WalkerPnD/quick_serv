@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/WalkerEpps/quick_serve/lib"
+	"github.com/walker-walks/quick_serv/lib"
 )
 
 func main() {
