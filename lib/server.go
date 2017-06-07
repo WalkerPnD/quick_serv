@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"context"
 	"time"
 
 	"github.com/labstack/echo"
@@ -39,9 +40,14 @@ func (s *Server) Run() {
 
 // Stop server if it's running
 func (s *Server) Stop() {
-	if s.Running {
-		s.Running = false
-		s.Shutdown(1 * time.Second)
+	if !s.Running {
+		return
+	}
+	s.Running = false
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+	if err := s.Shutdown(ctx); err != nil {
+		s.Logger.Fatal(err)
 	}
 }
 
